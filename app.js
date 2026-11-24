@@ -2,7 +2,7 @@
    app.js : logique du calendrier de l'Avent musical
    - 4 questions par jour (album, artiste, titre, année bonus)
    - 10 essais par question, indice (-1 point), possibilité de passer
-   - extrait Spotify après CHAQUE question, réponse toujours donnée
+   - extrait Spotify après la question 4
    - points mémorisés dans le navigateur, total au jour 24 + remake vidéo
    - mode test : ajouter ?test=1 à l'adresse du site
    ===================================================================== */
@@ -15,10 +15,10 @@
   const MAX_DAY = C.pointsPerQuestion * QIDS.length;
   const MAX_TOTAL = MAX_DAY * C.totalDays;
   const QUESTIONS = {
-    album:  { kicker: 'QUESTION 1 / 4', title: "Quel est cet album ?", note: "Regarde bien la pochette : les textes sont brouillés, mais la forme des mots peut t'aider.", label: "Nom de l'album", ph: "Ex. Rumours", bonus: false },
-    artist: { kicker: 'QUESTION 2 / 4', title: "Trouve l'artiste", note: "Qui se cache derrière cet album ? Un groupe ou un nom d'artiste.", label: "Nom de l'artiste ou du groupe", ph: "Ex. Fleetwood Mac", bonus: false },
-    title:  { kicker: 'QUESTION 3 / 4', title: "Donne un titre de l'album", note: "N'importe quelle chanson de cet album est acceptée.", label: "Titre d'une chanson de l'album", ph: "Ex. Dreams", bonus: false },
-    year:   { kicker: 'QUESTION BONUS', title: "Trouve l'année", note: "En quelle année cet album est-il sorti ?", label: "Année de sortie", ph: "Ex. 1977", bonus: true }
+    album:  { kicker: 'QUESTION 1 / 4', title: "Quel est cet album ?", note: "Regarde bien la pochette : les textes sont brouillés, mais la forme des mots peut t'aider.", label: "Nom de l'album", ph: "", bonus: false },
+    artist: { kicker: 'QUESTION 2 / 4', title: "Trouve l'artiste", note: "Qui se cache derrière cet album ? Un groupe ou un nom d'artiste.", label: "Nom de l'artiste ou du groupe", ph: "", bonus: false },
+    title:  { kicker: 'QUESTION 3 / 4', title: "Donne un titre de l'album", note: "N'importe quelle chanson de cet album est acceptée.", label: "Titre d'une chanson de l'album", ph: "", bonus: false },
+    year:   { kicker: 'QUESTION BONUS', title: "Trouve l'année", note: "En quelle année cet album est-il sorti ?", label: "Année de sortie", ph: "", bonus: true }
   };
 
   /* ---------- Outils ---------- */
@@ -162,7 +162,7 @@
         <p class="question-note">${q.note}</p>
         <form id="form" autocomplete="off">
           <label for="answer">${q.label}</label>
-          <input id="answer" name="answer" type="text" inputmode="${qid === 'year' ? 'numeric' : 'text'}" placeholder="${q.ph}" autocapitalize="off" spellcheck="false">
+          <input id="answer" name="answer" type="text" inputmode="${qid === 'year' ? 'numeric' : 'text'}" placeholder="" autocapitalize="off" spellcheck="false">
           <button type="submit">Valider <span class="button-arrow">→</span></button>
         </form>
         <p class="feedback" id="feedback"></p>
@@ -194,7 +194,7 @@
         <div class="music-reveal">
           <p class="music-kicker">LA RÉPONSE · ${q.title.toUpperCase()}</p>
           <h3>${esc(qid === 'title' ? d.titles[0] + ' (entre autres)' : answerText(d, qid))}</h3>
-          <p class="reveal-artist">${esc(d.artist)} — ${esc(d.album)} (${esc(d.year)})</p>
+          ${nextQ(d.day) ? '' : `<p class="reveal-artist">${esc(d.artist)} — ${esc(d.album)} (${esc(d.year)})</p>`}
           ${badge}${more}
           ${nextQ(d.day) ? '' : musicBlock(d)}
         </div>
