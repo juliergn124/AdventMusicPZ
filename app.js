@@ -196,10 +196,10 @@
           <h3>${esc(qid === 'title' ? d.titles[0] + ' (entre autres)' : answerText(d, qid))}</h3>
           <p class="reveal-artist">${esc(d.artist)} — ${esc(d.album)} (${esc(d.year)})</p>
           ${badge}${more}
-          ${musicBlock(d)}
+          ${nextQ(d.day) ? '' : musicBlock(d)}
         </div>
         <button type="button" id="nextBtn">${nextLabel} <span class="button-arrow">→</span></button>`;
-      mountPlayer($('#player'), d.spotify);
+      if (!nextQ(d.day)) mountPlayer($('#player'), d.spotify);
       $('#nextBtn').addEventListener('click', () => { view.stage = nextQ(d.day) ? 'ask' : 'summary'; render(); });
       return;
     }
@@ -218,11 +218,11 @@
         <p class="reveal-artist">${esc(d.artist)} · ${esc(d.year)}</p>
         <span class="points-badge good">${dayPoints(d.day)} / ${MAX_DAY} points aujourd'hui</span>
         <div class="recap">${rows}</div>
-        ${musicBlock(d)}
+        ${view.last === null ? musicBlock(d) : ''}
       </div>
       ${hasNext ? `<button type="button" id="nextDay">Jour ${nd.day} <span class="button-arrow">→</span></button>`
         : `<p class="question-note">${d.day < C.totalDays ? 'Rendez-vous demain pour la prochaine pochette !' : 'Tu as terminé le calendrier ! 🎄'}</p>`}`;
-    mountPlayer($('#player'), d.spotify);
+    if (view.last === null) mountPlayer($('#player'), d.spotify);
     const nb = $('#nextDay'); if (nb) nb.addEventListener('click', () => goDay(nd.day));
   }
 
