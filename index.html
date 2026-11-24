@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calendrier de l'Avent musical</title>
+<meta name="description" content="24 jours, 24 pochettes d'albums à deviner.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="ambient ambient-one"></div>
+<div class="ambient ambient-two"></div>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="brand-mark">♪</div>
+    <div class="eyebrow">Calendrier de l'Avent musical</div>
+    <h1>Devine la <span class="title-note">pochette</span></h1>
+    <p class="intro">24 jours, 24 albums. Les pochettes ont été redessinées et leurs textes brouillés : retrouve l'album, l'artiste, un titre et l'année.</p>
+    <div class="hero-rule"><span>✦</span></div>
+  </header>
+
+  <main>
+    <section class="game" id="game" aria-live="polite"></section>
+
+    <section class="finale" id="finale" hidden></section>
+
+    <section class="progress-section">
+      <div class="progress-heading">
+        <div>
+          <p class="section-kicker">TA PROGRESSION</p>
+          <h2>Le calendrier</h2>
+        </div>
+        <span class="count" id="count">0 / 24</span>
+      </div>
+      <p class="progress-subtitle" id="progressSubtitle"></p>
+      <div class="progress-track"><div id="progressBar"></div></div>
+      <div class="day-grid" id="dayGrid"></div>
+    </section>
+
+    <section class="test-panel" id="testPanel" hidden></section>
+  </main>
+
+  <footer>
+    <p><span class="footer-star">✦</span> Bonne écoute et joyeux Noël <span class="footer-star">✦</span></p>
+    <span>CALENDRIER DE L'AVENT MUSICAL</span>
+  </footer>
+</div>
+
+<script src="answers.js"></script>
+<script src="remake.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
